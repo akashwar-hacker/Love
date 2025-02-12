@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://www.transparenttextures.com/patterns/paper.png') repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            text-align: center; /* Center text for better mobile view */
+        }
+        h1 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+            font-size: 5vw; /* Responsive font size */
+        }
+        h2 {
+            color: #ff1493;
+            margin-top: 10px;
+            font-size: 4vw; /* Responsive font size */
+        }
+        .pleading-emojis {
+            font-size: 10vw; /* Responsive font size */
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row; /* Default to row */
+            gap: 20px; /* Space between buttons */
+        }
+        .button {
+            padding: 3vw 6vw; /* Responsive padding */
+            font-size: 4vw; /* Responsive font size */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            min-width: 100px; /* Fixed minimum width */
+            min-height: 50px; /* Fixed minimum height */
+            display: flex; /* Center text */
+            justify-content: center; /* Center text */
+            align-items: center; /* Center text */
+        }
+        .yes {
+            background-color: #ff1493;
+            color: white;
+        }
+        .no {
+            background-color: #ff69b4;
+            color: white;
+        }
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            top: 0; /* Start from the top */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for centering */
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Media Queries for Mobile Optimization */
+        @media (max-width: 600px) {
+            .button-container {
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center; /* Center buttons */
+            }
+            .button {
+                width: 80%; /* Full width buttons */
+                margin: 10px 0; /* Space between buttons */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my Valentine?</h1>
+    <div class="pleading-emojis">🥺🥺</div>
+    <div class="button-container">
+        <button class="button yes" onclick="goToCelebration()">Yes</button>
+        <button class="button no" id="noButton" onclick="moveButton()">No</button>
+    </div>
+
+    <script>
+        function moveButton() {
+            const noButton = document.getElementById('noButton');
+            const screenWidth = window.innerWidth - 100; // 100 for button width
+            const screenHeight = window.innerHeight - 100; // 100 for button height
+
+            const randomX = Math.floor(Math.random() * screenWidth);
+            const randomY = Math.floor(Math.random() * screenHeight);
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        function goToCelebration() {
+            document.body.innerHTML = `
+                <div style="text-align: center;">
+                    <h1>Yayyyy!!! I Knew you would say yes babyy 😘😘❤️❤️</h1>
+                    <h2>Let's meet in the evening my loveeee 😘😘😘❤️🧿</h2>
+                    <div class="confetti" id="confetti"></div>
+                </div>
+            `;
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.className = 'confetti-piece';
+                confettiPiece.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                confettiPiece.style.animationDuration = Math.random() * 2 + 3 + 's'; // Random fall duration
+                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+                confettiContainer.appendChild(confettiPiece);
+            }
+        }
+    </script>
+</body>
+</html>
